@@ -56,7 +56,7 @@ We use ptrdiff_t for the width variable instead of int to make sure that the upp
 The function below has the pointer offset trickery in it:
 
 ```assembly
-;static void add_values(const uint8_t *src, const uint8_t *src2, ptrdiff_t width)
+;static void add_values(uint8_t *src, const uint8_t *src2, ptrdiff_t width)
 INIT_XMM sse2
 cglobal add_values, 3, 3, 2, src, src2, width
    add srcq, widthq
