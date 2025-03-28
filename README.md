@@ -11,3 +11,7 @@ In this Git repository there are lessons and assignments (not uploaded yet) that
 
 A discord server is available to answer questions:
 https://discord.com/invite/Ks5MhUhqfB
+
+**Translations**
+
+* [Français](./README.fr.md)
