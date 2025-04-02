@@ -217,4 +217,4 @@ RET
 
 在后续的作业中，你会看到，我们会为汇编函数创建函数指针，并在可用的地方使用它们。
 
-[下一节课](../lesson_02/index_zh-hans.md)
+[下一课](../lesson_02/index_zh-hans.md)
