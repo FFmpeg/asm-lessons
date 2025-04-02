@@ -42,7 +42,7 @@ FFmpeg中的绝大多数汇编代码都是所谓的*SIMD，单指令多数据 (S
 
 许多书籍在教汇编之前会深入介绍计算机架构细节。如果你想学这些，那很好，但从我们的角度来看，这就像在学习开车之前研究发动机。
 
-话虽如此，《64位汇编的艺术》 (The Art of 64-bit assembly) 一书后半部分的图解，以可视化方式展示 SIMD 指令及其行为，还是很有用的：[https://artofasm.randallhyde.com/](https://artofasm.randallhyde.com/)
+话虽如此，《64位汇编语言的编程艺术》 (The Art of 64-bit assembly) 一书后半部分的图解，以可视化方式展示 SIMD 指令及其行为，还是很有用的：[https://artofasm.randallhyde.com/](https://artofasm.randallhyde.com/)
 
 我们有个 Discord 服务器用来解答问题:  
 [https://discord.com/invite/Ks5MhUhqfB](https://discord.com/invite/Ks5MhUhqfB)

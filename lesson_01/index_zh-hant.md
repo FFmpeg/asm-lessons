@@ -42,7 +42,7 @@ FFmpeg中的絕大多數組合程式碼都是所謂的*SIMD，單指令多資料
 
 許多書籍在教組合之前會深入介紹電腦架構細節。如果你想學這些，那很好，但從我們的角度來看，這就像在學習開車之前研究引擎。
 
-話雖如此，《64位組合的藝術》 (The Art of 64-bit assembly) 一書後半部分的圖解，以可視化方式展示 SIMD 指令及其行為，還是很有用的：[https://artofasm.randallhyde.com/](https://artofasm.randallhyde.com/)
+話雖如此，《64位組合語言的程式設計藝術》 (The Art of 64-bit assembly) 一書後半部分的圖解，以可視化方式展示 SIMD 指令及其行為，還是很有用的：[https://artofasm.randallhyde.com/](https://artofasm.randallhyde.com/)
 
 我們有個 Discord 伺服器用來解答問題:  
 [https://discord.com/invite/Ks5MhUhqfB](https://discord.com/invite/Ks5MhUhqfB)
