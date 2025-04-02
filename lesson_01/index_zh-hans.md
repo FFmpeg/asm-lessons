@@ -29,7 +29,7 @@ FFmpeg中的绝大多数汇编代码都是所谓的*SIMD，单指令多数据 (S
 
 出于历史原因，你可能还会在 FFmpeg 的一些地方看到*内联汇编 (inline assembly)*（即不使用内联函数），或者在 Linux 内核等项目中因为非常特殊的应用场景而看到内联汇编。这是指汇编代码不写在单独的文件中，在像 FFmpeg 这样的项目中，主流观点认为这种代码难以阅读，缺乏广泛的编译器支持，并且难以维护。
 
-最后，你会看到很多自称专家的人在网上说这些都是没必要的，编译器可以为你完成所有这些“向量化”工作。至少以学习的目的，请忽视他们：例如，[dav1d项目](https://www.videolan.org/projects/dav1d.html)的最近测试显示，这种自动向量化带来了约2倍的速度提升，而手写版本可以达到8倍。
+最后，你会看到很多自称专家的人在网上说这些都是没必要的，编译器可以为你完成所有这些 “向量化” 工作。至少以学习的目的，请忽视他们：例如，[dav1d项目](https://www.videolan.org/projects/dav1d.html)的最近测试显示，这种自动向量化带来了约2倍的速度提升，而手写版本可以达到8倍。
 
 **汇编语言的风格**  
 
@@ -58,10 +58,6 @@ FFmpeg中的绝大多数汇编代码都是所谓的*SIMD，单指令多数据 (S
 **向量寄存器 (Vector registers)**  
 向量 (SIMD) 寄存器，顾名思义，包含多个数据元素。不同类型的向量寄存器包括：
 
-* mm registers - MMX registers, 64-bit sized, historic and not used much any more  
-* xmm registers - XMM registers, 128-bit sized, widely available  
-* ymm registers - YMM registers, 256-bit sized, some complications when using these   
-* zmm registers - ZMM registers, 512-bit sized, limited availability
 * mm寄存器 - MMX寄存器，64位大小，历史悠久，目前已不常使用 
 * xmm寄存器 - XMM寄存器，128位大小，广泛可用  
 * ymm寄存器 - YMM寄存器，256位大小，使用时有一些复杂性   
