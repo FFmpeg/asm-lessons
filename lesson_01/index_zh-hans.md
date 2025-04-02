@@ -11,13 +11,13 @@
 
 **什么是汇编语言 (Assembly language)？**
 
-汇编语言 (Assembly language) 是一种编程语言，你编写的代码直接对应于CPU处理的指令。人类可读的汇编语言，顾名思义，被*汇编 (assembled)* 成CPU能够理解的二进制数据，称为*机器码 (machine code)*。你可能会看到汇编语言代码被简称为"assembly"或"asm"。
+汇编语言 (Assembly language) 是一种编程语言，你编写的代码直接对应于CPU处理的指令。人类可读的汇编语言，顾名思义，被*汇编 (assembled)* 成CPU能够理解的二进制数据，称为*机器码 (machine code)*。你可能会看到汇编语言代码被简称为 “assembly” 或 “asm” 。
 
 FFmpeg中的绝大多数汇编代码都是所谓的*SIMD，单指令多数据 (Single Instruction Multiple Data)*。SIMD有时也被称为向量编程 (vector programming)。这意味着特定指令能同时对多个数据元素进行操作。大多数编程语言一次只处理一个数据元素，称为标量编程 (scalar programming)。
 
 你可能已经猜到，SIMD非常适合处理图像、视频和音频，因为这些数据在内存中按顺序排列。CPU中有专门的指令帮助我们处理顺序数据。
 
-在FFmpeg中，你会看到"汇编函数 (assembly function)"、"SIMD"和"向量（化）"这些术语被互换使用。它们都指的是同一件事：通过手写汇编语言函数一次性地处理多个数据元素。一些项目也可能将这些称为"汇编内核 (assembly kernels)"。
+在FFmpeg中，你会看到 “汇编函数 (assembly function)” 、 “SIMD” 和 “向量（化）” 这些术语被互换使用。它们都指的是同一件事：通过手写汇编语言函数一次性地处理多个数据元素。一些项目也可能将这些称为 “汇编内核 (assembly kernels)” 。
 
 所有这些听起来可能比较复杂，但谨记，在FFmpeg项目中，高中生也编写了汇编代码。与所有事物一样，学习是50%术语和50%实际学习。
 
@@ -25,11 +25,11 @@ FFmpeg中的绝大多数汇编代码都是所谓的*SIMD，单指令多数据 (S
 
 为了使多媒体处理得更快。编写汇编代码通常能带来10倍或以上的速度提升，这对于实时播放视频而不卡顿尤为重要。它还能节省能源并延长电池寿命。值得注意的是，视频编码和解码是全球最常用的功能之一，无论是普通用户还是大型企业的数据中心都用到它们。因此，即使是微小的改进，也能迅速积累出显著的效果。
 
-在网上，你会经常看到人们使用*内联函数 (intrinsics)*，这些C语言风格的函数映射到汇编指令，以便更快地开发。在 FFmpeg 中，我们不使用内联函数，而是手写汇编代码。这是一个有争议的部分，但内联函数通常比手写汇编慢约10-15%（内联函数支持者可能会不同意），这取决于编译器。对于 FFmpeg 来说，每一点额外的性能提升都有用，这就是为什么我们直接使用汇编代码。还有一种观点认为，内联函数由于使用了"[匈牙利命名法](https://zh.wikipedia.org/wiki/匈牙利命名法)"而难以阅读。
+在网上，你会经常看到人们使用*内联函数 (intrinsics)*，这些C语言风格的函数映射到汇编指令，以便更快地开发。在 FFmpeg 中，我们不使用内联函数，而是手写汇编代码。这是一个有争议的部分，但内联函数通常比手写汇编慢约10-15%（内联函数支持者可能会不同意），这取决于编译器。对于 FFmpeg 来说，每一点额外的性能提升都有用，这就是为什么我们直接使用汇编代码。还有一种观点认为，内联函数由于使用了 “[匈牙利命名法](https://zh.wikipedia.org/wiki/匈牙利命名法)” 而难以阅读。
 
 出于历史原因，你可能还会在 FFmpeg 的一些地方看到*内联汇编 (inline assembly)*（即不使用内联函数），或者在 Linux 内核等项目中因为非常特殊的应用场景而看到内联汇编。这是指汇编代码不写在单独的文件中，在像 FFmpeg 这样的项目中，主流观点认为这种代码难以阅读，缺乏广泛的编译器支持，并且难以维护。
 
-最后，你会看到很多自称专家的人在网上说这些都是没必要的，编译器可以为你完成所有这些"向量化"工作。至少以学习的目的，请忽视他们：例如，[dav1d项目](https://www.videolan.org/projects/dav1d.html)的最近测试显示，这种自动向量化带来了约2倍的速度提升，而手写版本可以达到8倍。
+最后，你会看到很多自称专家的人在网上说这些都是没必要的，编译器可以为你完成所有这些“向量化”工作。至少以学习的目的，请忽视他们：例如，[dav1d项目](https://www.videolan.org/projects/dav1d.html)的最近测试显示，这种自动向量化带来了约2倍的速度提升，而手写版本可以达到8倍。
 
 **汇编语言的风格**  
 
@@ -99,13 +99,10 @@ FFmpeg中的绝大多数汇编代码都是所谓的*SIMD，单指令多数据 (S
 加粗的字符稍后会很重要。
 
 **x86inc.asm 包含文件**  
-You’ll see in many examples we include the file x86inc.asm. X86inc.asm is a lightweight abstraction layer used in FFmpeg, x264, and dav1d to make an assembly programmer's life easier. It helps in many ways, but to begin with, one of the useful things it does is it labels GPRs, r0, r1, r2. This means you don’t have to remember any register names. As mentioned before, GPRs are generally just scaffolding so this makes life a lot easier.
 
 在许多示例中，你会看到我们包含了文件 x86inc.asm。x86inc.asm 是 FFmpeg、x264 和 dav1d 中使用的轻量级抽象层，旨在简化汇编程序员的工作。它在许多方面提供帮助，但首先，它的一个有用功能是给 GPR 寄存器标记为 r0、r1、r2。这样，你就不必记住任何寄存器的名称。如前所述，GPR 通常只是脚手架，所以这种做法大大简化了编程过程。
 
 **一个简单的标量汇编 (scalar asm) 片段**
-
-Let’s look at a simple (and very much artificial) snippet of scalar asm (assembly code that operates on individual data items, one at a time, within each instruction) to see what’s going on:
 
 让我们看一段简单（且非常人工构造）的标量汇编代码（每条指令一次只对单个数据项进行操作的汇编代码），看看发生了什么：
 
@@ -116,7 +113,7 @@ dec  r0q
 imul r0q, 5
 ```
 
-在第一行中，*立即数 (immediate value)* 3（直接存储在汇编代码中的值，而不是从内存中获取的值）被存储到寄存器 r0 中，作为一个四字（quadword）值。注意，在 Intel 风格中，源操作数（提供数据的值或位置，位于右侧）被传送到目标操作数（接收数据的位置，位于左侧），类似于 memcpy 的行为。你也可以理解为‘r0q = 3’，因为顺序是相同的。r0 的 ‘q’ 后缀表示该寄存器作为四字 (**q**uadword) 来用。‘inc’ 操作将值增加，使 r0q 包含 4，‘dec’ 操作将值减少回 3，‘imul’ 将值乘以 5。因此，最终 r0q 包含 15。
+在第一行中，*立即数 (immediate value)* 3（直接存储在汇编代码中的值，而不是从内存中获取的值）被存储到寄存器 r0 中，作为一个四字（quadword）值。注意，在 Intel 风格中，源操作数（提供数据的值或位置，位于右侧）被传送到目标操作数（接收数据的位置，位于左侧），类似于 memcpy 的行为。你也可以理解为“r0q = 3”，因为顺序是相同的。r0 的 “q” 后缀表示该寄存器作为四字 (**q**uadword) 来用。“inc” 操作将值增加，使 r0q 包含 4，“dec” 操作将值减少回 3，“imul” 将值乘以 5。因此，最终 r0q 包含 15。
 
 请注意，汇编器 (assembler) 将人类可读的指令（如 mov 和 inc）汇编成机器代码，这些被称为*助记符 (mnemonics)*。你可能会在网上和书籍中看到助记符以大写字母表示，如 MOV 和 INC，但它们与小写版本完全相同。在 FFmpeg 中，我们使用小写助记符，并将大写保留给宏 (macro) 定义。
 
@@ -148,7 +145,7 @@ cglobal add_values, 2, 2, 2, src, src2
 %include "x86inc.asm"
 ```
 
-这是一个由x264、FFmpeg 和 dav1d 社区开发的"头文件"，提供帮助函数、预定义名称和宏（如下面的cglobal）以简化汇编编写。
+这是一个由x264、FFmpeg 和 dav1d 社区开发的“头文件”，提供帮助函数、预定义名称和宏（如下面的cglobal）以简化汇编编写。
 
 ```assembly
 SECTION .text
@@ -161,7 +158,7 @@ SECTION .text
 INIT_XMM sse2
 ```
 
-第一行是注释（在汇编中，分号 ‘;’ 的作用类似于 C 语言中的 ‘//’），用于展示该函数的 C 语言参数形式。第二行用于初始化函数，使其能够使用 XMM 寄存器，并指定使用 sse2 指令集。这是因为 paddb 是一个 sse2 指令。我们将在下一课中更详细地介绍 sse2。
+第一行是注释（在汇编中，分号 “;” 的作用类似于 C 语言中的 “//”），用于展示该函数的 C 语言参数形式。第二行用于初始化函数，使其能够使用 XMM 寄存器，并指定使用 sse2 指令集。这是因为 paddb 是一个 sse2 指令。我们将在下一课中更详细地介绍 sse2。
 
 ```assembly
 cglobal add_values, 2, 2, 2, src, src2
@@ -183,7 +180,7 @@ cglobal add_values, 2, 2, 2, src, src2
     movu  m1, [src2q]
 ```
 
-movu 是 movdqu（move double quad unaligned 移动双四字未对齐）的简写。关于对齐的内容我们会在后续课程中讲解，但目前可以将 movu 视为从 [srcq] 进行 128 位数据传输。对于 mov 指令，方括号表示对 [srcq] 指向的地址进行解引用，相当于 *C 语言中的 \*src*，这就是所谓的‘加载’（load）。需要注意的是，q 后缀表示指针的大小（即在 C 语言中在 64 位系统上 sizeof(*src) == 8，x86 汇编在 32 位系统上则会自动调整为 32 位），但实际加载的数据仍然是 128 位的。
+movu 是 movdqu（move double quad unaligned 移动双四字未对齐）的简写。关于对齐的内容我们会在后续课程中讲解，但目前可以将 movu 视为从 [srcq] 进行 128 位数据传输。对于 mov 指令，方括号表示对 [srcq] 指向的地址进行解引用，相当于 *C 语言中的 \*src*，这就是所谓的“加载”（load）。需要注意的是，q 后缀表示指针的大小（即在 C 语言中在 64 位系统上 sizeof(*src) == 8，x86 汇编在 32 位系统上则会自动调整为 32 位），但实际加载的数据仍然是 128 位的。
 
 需要注意的是，我们并不使用向量寄存器的完整名称（例如 xmm0），而是使用抽象形式的 m0。在后续课程中，你会看到这种方式的优势 —— 它允许你编写一次代码，并在不同大小的 SIMD 寄存器上通用适用。
 
@@ -191,8 +188,6 @@ movu 是 movdqu（move double quad unaligned 移动双四字未对齐）的简�
 paddb m0, m1
 ```
 
-paddb (read this in your head as *p-add-b*) is adding each byte in each register as shown below. The “p” prefix stands for “packed” and is used to identify vector instructions vs scalar instructions. The “b” suffix shows that this is bytewise addition (addition of bytes).
- 
 paddb（可以在脑海中读作 *p-add-b*）会对每个寄存器中的每个字节进行相加，如下所示。“p” 前缀代表 “packed”（打包），用于区分向量指令和标量指令。“b” 后缀表示这是 按字节（bytewise） 进行的加法运算。
 
 | a | b | c | d | e | f | g | h | i | j | k | l | m | n | o | p |
