@@ -212,4 +212,4 @@ RET
 
 在後續的作業中，你會看到，我們會為組合函式創建函式指標，並在可用的地方使用它們。
 
-[下一課](../lesson_02/index_zh-hant.md)
+[下一節課](../lesson_02/index_zh-hant.md)
