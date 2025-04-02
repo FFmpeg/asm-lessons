@@ -9,5 +9,5 @@
 
 在这个 Git 仓库中，你可以找到课程内容及对应的作业（作业暂未上传）。完成所有课程后，你将具备为 FFmpeg 贡献代码的能力。
 
-我们有个 Discord 服务器用来解答问题:  
+我们有个 Discord 服务器用来解答问题: 
 https://discord.com/invite/Ks5MhUhqfB
