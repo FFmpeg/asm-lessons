@@ -1,3 +1,7 @@
+[c-lang-book]: https://en.wikipedia.org/wiki/The_C_Programming_Language
+[hung-notation-wiki]: https://en.wikipedia.org/wiki/Hungarian_notation
+[dav-project]: https://www.videolan.org/projects/dav1d.html
+
 **FFmpeg Assembly Language Lesson One**
 
 **Introduction**
@@ -10,7 +14,7 @@ to what's actually going on in your computer..
 **Required Knowledge**
 
 * Knowledge of C, in particular pointers. If you don't know C, work through [The C
-Programming Language](https://en.wikipedia.org/wiki/The_C_Programming_Language) book
+Programming Language][c-lang-book] book
 * High School Mathematics (scalar vs vector, addition, multiplication etc)
 
 **What is assembly language?**
@@ -54,8 +58,7 @@ but instead write assembly code by hand. This is an area of controversy, but int
 typically around 10-15% slower than hand-written assembly (intrinsics supporters would
 disagree), depending on the compiler. For FFmpeg, every bit of extra performance helps,
 which is why we write in assembly code directly. There’s also an argument that intrinsics
-are difficult to read owing to their use of “[Hungarian Notation](https://en.wikipedia.org
-/wiki/Hungarian_notation)”.
+are difficult to read owing to their use of “[Hungarian Notation][hung-notation-wiki]”.
 
 You may also see *inline assembly* (i.e. not using intrinsics) remaining in a few places in
 FFmpeg for historical reasons, or in projects like the Linux Kernel because of very
@@ -65,8 +68,7 @@ code is hard to read, not widely supported by compilers and unmaintainable.
 
 Lastly, you’ll see a lot of self-proclaimed experts online saying none of this is necessary
 and the compiler can do all of this “vectorisation” for you. At least for the purpose of
-learning, ignore them: recent tests in e.g. [the dav1d project](https://www.videolan.org
-projects/dav1d.html) showed around a 2x speedup from this automatic vectorisation, while
+learning, ignore them: recent tests in e.g. [the dav1d project][dav-project] showed around a 2x speedup from this automatic vectorisation, while
 the hand-written versions could reach 8x.
 
 **Flavours of assembly language**  
@@ -94,11 +96,11 @@ fine if that’s what you want to learn, but from our standpoint, it’s like st
 before learning to drive a car.
 
 That said, the diagrams in the later parts of “The Art of 64-bit assembly” book showing
-SIMD instructions and their behaviour in a visual form are helpful: [https://
-artofasm.randallhyde.com/](https://artofasm.randallhyde.com/)
+SIMD instructions and their behaviour in a visual form are helpful:
+<https://artofasm.randallhyde.com/>
 
 A discord server is available to answer questions:  
-[https://discord.com/invite/Ks5MhUhqfB](https://discord.com/invite/Ks5MhUhqfB)
+<https://discord.com/invite/Ks5MhUhqfB>
 
 **Registers**  
 
