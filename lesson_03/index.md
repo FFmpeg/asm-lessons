@@ -47,7 +47,7 @@ from the [Steam Survey](https://store.steampowered.com/hwsurvey/Steam-Hardware-S
 Survey-Welcome-to-Steam) as of November 2024 (this is obviously biased towards gamers):
 
 | Instruction Set | Availability |
-| :---- | :---- |
+| :-- | :-- |
 | SSE2 | 100% |
 | SSE3 | 100% |
 | SSSE3 | 99.86% |
@@ -176,7 +176,7 @@ Let’s look at how punpcklbw works. The syntax for the SSE2 version from the In
 as follows:
 
 | PUNPCKLBW xmm1, xmm2/m128 |
-| :---- |
+| :-- |
 
 This means its source (right hand side) can be an xmm register or a memory address (m128 
 means a memory address with the standard [base + scale*index + disp]) syntax and the
@@ -202,13 +202,13 @@ punpcklbw m0, m2
 punpckhbw m1, m2
 ```
 
-```m0``` and ```m1``` now contain the original bytes zero extended to words. In the next lesson you’ll see how three-operand instructions in AVX make the second movu unnecessary.
+`m0` and `m1` now contain the original bytes zero extended to words. In the next lesson you’ll see how three-operand instructions in AVX make the second movu unnecessary.
 
 **Sign extension**
 
 Signed data is a bit more complicated. To range extend a signed integer, we need to use a process known as [sign extension](https://en.wikipedia.org/wiki/Sign_extension). This pads the MSBs with the sign bit. For example: -2 in int8_t is 0b11111110. To sign extend it to int16_t the MSB of 1 is repeated to make 0b1111111111111110.
 
-```pcmpgtb``` (packed compare greater than byte) can be used for sign extension. By doing the comparison (0 > byte), all the bits in the destination byte are set to 1 if the byte is negative, otherwise the bits in the destination byte are set to 0. punpckX can be used as above to perform the sign extension. If the byte is negative the corresponding byte is 0b11111111 and otherwise it’s 0x00000000. Interleaving the byte value with the output of pcmpgtb performs a sign extension to word as a result.
+`pcmpgtb` (packed compare greater than byte) can be used for sign extension. By doing the comparison (0 > byte), all the bits in the destination byte are set to 1 if the byte is negative, otherwise the bits in the destination byte are set to 0. punpckX can be used as above to perform the sign extension. If the byte is negative the corresponding byte is 0b11111111 and otherwise it’s 0x00000000. Interleaving the byte value with the output of pcmpgtb performs a sign extension to word as a result.
 
 ```assembly
 pxor      m2, m2 ; zero out m2

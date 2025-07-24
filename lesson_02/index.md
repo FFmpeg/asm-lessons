@@ -54,7 +54,7 @@ for(i = 0; i < 3; i++) {
 }
 ```
 
-This is roughly equivalent to (there's no simple way of matching this ```for``` loop):
+This is roughly equivalent to (there's no simple way of matching this `for` loop):
 
 ```assembly
 xor r0q, r0q
@@ -65,13 +65,13 @@ xor r0q, r0q
     jl  .loop ; jump if (r0q - 3) < 0, i.e (r0q < 3)
 ```
 
-There are several things to point out in this snippet. First is ```xor r0q, r0q``` which is
-a common way of setting a register to zero, that on some systems is faster than ```mov r0q,
-0```, because, put simply, there is no actual load taking place. It can also be used on
-SIMD registers with ```pxor m0, m0``` to zero out an entire register. The next thing to
+There are several things to point out in this snippet. First is `xor r0q, r0q` which is
+a common way of setting a register to zero, that on some systems is faster than `mov r0q,
+0`, because, put simply, there is no actual load taking place. It can also be used on
+SIMD registers with `pxor m0, m0` to zero out an entire register. The next thing to
 note is the use of cmp. cmp effectively subtracts the second register from the first
 (without storing the value anywhere) and sets *FLAGS*, but as per the comment, it can be
-read together with the jump, (jl = jump if less than zero) to jump if ```r0q < 3```.
+read together with the jump, (jl = jump if less than zero) to jump if `r0q < 3`.
 
 Note how there is one extra instruction (cmp) in this snippet. Generally speaking, fewer
 instructions means faster code, which is why the earlier snippet is preferred. As you’ll
@@ -83,7 +83,7 @@ Here are some common jump mnemonics you’ll end up using (*FLAGS* are there for
 completeness, but you don’t need to know the specifics to write loops):
 
 | Mnemonic | Description  | FLAGS |
-| :---- | :---- | :---- |
+| :-- | :-- | :-- |
 | JE/JZ | Jump if Equal/Zero | ZF = 1 |
 | JNE/JNZ | Jump if Not Equal/Not Zero | ZF = 0 |
 | JG/JNLE | Jump if Greater/Not Less or Equal (signed) | ZF = 0 and SF = OF |
@@ -104,9 +104,9 @@ constants_2: times 2 dw 4,3,2,1
 
 * SECTION_RODATA specifies this is a read-only data section. (This is a macro because
 different output file formats that operating systems use declare this differently)
-* constants_1: The label constants_1, is defined as ```db``` (declare byte) - i.e
+* constants_1: The label constants_1, is defined as `db` (declare byte) - i.e
 equivalent to uint8_t constants_1[4] = {1, 2, 3, 4};
-* constants_2: This uses the ```times 2``` macro to repeat the declared words - i.e
+* constants_2: This uses the `times 2` macro to repeat the declared words - i.e
 equivalent to uint16_t constants_2[8] = {4, 3, 2, 1, 4, 3, 2, 1};
 
 These labels, which the assembler converts to a memory address, can then be used in loads
@@ -168,7 +168,7 @@ jg .loop
 RET
 ```
 
-Note how in ```movu m1, [srcq+2*r1q+3+mmsize]``` the assembler will precalculate the right
+Note how in `movu m1, [srcq+2*r1q+3+mmsize]` the assembler will precalculate the right
 displacement constant to use. In the next lesson we’ll show you a trick to avoid having to
 do add and dec in the loop, replacing them with a single add.
 
