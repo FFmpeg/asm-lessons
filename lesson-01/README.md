@@ -4,20 +4,6 @@
 
 # FFmpeg Assembly Language Lesson One
 
-## Introduction
-
-Welcome to the FFmpeg School of Assembly Language. You have taken the first step on the
-most interesting, challenging, and rewarding journey in programming. These lessons will
-give you a grounding in the way assembly language is written in FFmpeg and open your eyes
-to what's actually going on in your computer..
-
-> [!NOTE]
-> ### Required Knowledge
->
-> * Knowledge of C, in particular pointers. If you don't know C, work through [The C
-> Programming Language][c-lang-book] book
-> * High School Mathematics (scalar vs vector, addition, multiplication etc)
-
 ## What is assembly language?
 
 Assembly language is a programming language where you write code that directly corresponds
