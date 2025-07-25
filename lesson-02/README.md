@@ -209,4 +209,4 @@ multiplications by `1`, `2`, `4`, `8` and addition of a fixed offset is common.
 In the assignment you'll have to load a constant and add the values to a SIMD vector in a
 loop.
 
-> [Next Lesson](../lesson_03/index.md)
+> [Prev lesson](../lesson-01/README.md) | [Next lesson](../lesson-03/README.md)

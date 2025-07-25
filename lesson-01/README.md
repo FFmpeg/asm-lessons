@@ -324,4 +324,4 @@ modify the data in the arguments as opposed to returning a value.
 As you'll see in the assignment, we create function pointers to assembly functions and use
 them where available.
 
-> [Next Lesson](../lesson_02/index.md)
+> [Next lesson](../lesson-02/README.md)

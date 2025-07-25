@@ -288,3 +288,5 @@ pshufb m0, m1 ; shuffle m0 based on m1
 
 Note that `-1` for easy reading is used as the shuffle index to zero out the output byte: `-1`
 as a byte is the `0b11111111` bitfield (two's complement), and thus the MSB (`0x80`) is set.
+
+> [Prev lesson](../lesson-02/README.md)
