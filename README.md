@@ -1,4 +1,4 @@
-[c-lang-book]: https://en.wikipedia.org/wiki/The_C_Programming_Language
+[c-lang-book]: https://en.wikipedia.org/wiki/The_C_Programming_Language "Book wikipedia"
 
 Welcome to the FFmpeg School of Assembly Language. You have taken the first step on the
 most interesting, challenging, and rewarding journey in programming. These lessons will

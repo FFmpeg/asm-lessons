@@ -1,6 +1,6 @@
-[c-lang-book]: https://en.wikipedia.org/wiki/The_C_Programming_Language
-[hung-notation-wiki]: https://en.wikipedia.org/wiki/Hungarian_notation
-[dav-project]: https://www.videolan.org/projects/dav1d.html
+[hung-notation-wiki]: https://en.wikipedia.org/wiki/Hungarian_notation "Wikipedia"
+[dav-project]: https://www.videolan.org/projects/dav1d.html "Open-source AV1 decoder"
+[the-art-asm]: https://artofasm.randallhyde.com "Book website"
 
 # FFmpeg Assembly Language Lesson One
 

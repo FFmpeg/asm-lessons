@@ -1,7 +1,7 @@
-[avx512-removed]: https://www.igorslab.de/en/intel-deactivated-avx-512-on-alder-lake-but-fully-questionable-interpretation-of-efficiency-news-editorial/
-[steam-survey]: https://store.steampowered.com/hwsurvey/Steam-Hardware-Software-Survey-Welcome-to-Steam
-[fate-testsuite]: https://fate.ffmpeg.org/query=subarch:x86_64%2F%2F
-[sign-ext-wiki]: https://en.wikipedia.org/wiki/Sign_extension
+[avx512-removed]: https://www.igorslab.de/en/intel-deactivated-avx-512-on-alder-lake-but-fully-questionable-interpretation-of-efficiency-news-editorial/ "A news about"
+[steam-survey]: https://store.steampowered.com/hwsurvey/Steam-Hardware-Software-Survey-Welcome-to-Steam "Data presentation"
+[fate-testsuite]: https://fate.ffmpeg.org/?query=subarch:x86_64%2F%2F "FFmpeg fate-testsuite"
+[sign-ext-wiki]: https://en.wikipedia.org/wiki/Sign_extension "Wikipedia"
 
 # FFmpeg Assembly Lesson Three
 
@@ -198,7 +198,7 @@ destination an xmm register.
 
 The `officedaytime.com` website above has a good diagram showing what's going on:
 
-![What is this](https://raw.githubusercontent.com/duckafire/asm-lessons/refs/heads/main/lesson_03/image1.png)
+![What is this](./officedaytime-diagram.png)
 
 You can see that bytes are interleaved from the lower half of each register respectively.
 But what has this got to do with range extension? If the `src` register is all zeros this
