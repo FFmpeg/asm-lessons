@@ -5,13 +5,14 @@ most interesting, challenging, and rewarding journey in programming. These lesso
 give you a grounding in the way assembly language is written in FFmpeg and open your eyes
 to what's actually going on in your computer.
 
-**Required Knowledge**
+> [!NOTE]
+> ### Required Knowledge
+>
+> * Knowledge of C, in particular pointers. If you don't know C, work through [The C
+> Programming Language][c-lang-book] book
+> * High School Mathematics (scalar vs vector, addition, multiplication etc)
 
-* Knowledge of C, in particular pointers. If you don't know C, work through [The C
-Programming Language][c-lang-book] book
-* High School Mathematics (scalar vs vector, addition, multiplication etc)
-
-**Lessons**
+### Lessons
 
 In this Git repository there are lessons and assignments (not uploaded yet) that correspond
 with each lessons. By the end of the lessons you'll be able to contribute to FFmpeg.
