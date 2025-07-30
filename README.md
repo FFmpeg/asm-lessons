@@ -2,7 +2,7 @@ Welcome to the FFmpeg School of Assembly Language. You have taken the first step
 
 **Required Knowledge**
 
-* Knowledge of C, in particular pointers. If you don't know C, work through [The C Programming Language](https://en.wikipedia.org/wiki/The_C_Programming_Language) book  
+* Knowledge of C, in particular pointers. If you don't know C, work through [The C Programming Language](https://en.wikipedia.org/wiki/The_C_Programming_Language) book
 * High School Mathematics (scalar vs vector, addition, multiplication etc)
 
 **Lessons**
@@ -15,3 +15,4 @@ https://discord.com/invite/Ks5MhUhqfB
 **Translations**
 
 * [Français](./README.fr.md)
+* [Português](./README.pt-br.md)
