@@ -15,3 +15,4 @@ https://discord.com/invite/Ks5MhUhqfB
 **Traductions**
 
 * [English](./README.md)
+* [Spanish](./README.es.md)
