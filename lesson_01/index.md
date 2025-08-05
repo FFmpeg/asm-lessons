@@ -56,7 +56,7 @@ In most assembly books, there are whole chapters dedicated to the subtleties of 
 **Vector registers**  
 Vector (SIMD) registers, as the name suggests, contain multiple data elements. There are various types of vector registers:
 
-* mm registers - MMX registers, 64-bit sized, historic and not used much any more  
+* mmx registers - MMX registers, 64-bit sized, historic and not used much any more  
 * xmm registers - XMM registers, 128-bit sized, widely available  
 * ymm registers - YMM registers, 256-bit sized, some complications when using these   
 * zmm registers - ZMM registers, 512-bit sized, limited availability
