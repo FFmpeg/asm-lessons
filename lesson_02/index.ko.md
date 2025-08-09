@@ -68,22 +68,22 @@ The next thing to note is the use of cmp. cmp effectively subtracts the second r
 
 또한 이 코드에는 추가 명령어(`cmp`)가 하나 더 있다는 점을 유의해야 합니다. 일반적으로 명령어 수가 적을수록 코드가 더 빠르기 때문에 이전 예제의 방식이 더 선호됩니다. 앞으로의 강의에서 보겠지만, 이러한 추가 명령을 피하고 산술 연산니아 다른 연산에서 바로 FLAGS를 설정하는 다양한 기법들이 있습니다.
 
-마지막으로, C의 반복문을 어셈블리에서 정확히 동일하게 재현하려는 것이 아니라, 어셈블리에서 가능한 빠르게 동작하는 반복문을 작성해야 한다는 점을 유의해야 합니다.
+마지막으로, C의 반복문을 어셈블리에서 정확히 동일하게 재현하려는 것이 아니라, 어셈블리에서 가능한 빠르게 동작하는 반복문을 작성하는 것이 목적이라는 것을 기억해야 합니다.
 
-Here are some common jump mnemonics you’ll end up using (*FLAGS* are there for completeness, but you don’t need to know the specifics to write loops):
+다음은 자주 사용하게 될 몇 가지 점프 명령어 약어입니다(*FLAGS*는 참고를 위해 포함했으며 루프를 작성하는데 세부 내용을 반드시 알 필요는 없습니다).
 
-| Mnemonic | Description  | FLAGS |
+| 니모닉(Mnemonic) | 설명  | FLAGS |
 | :---- | :---- | :---- |
-| JE/JZ | Jump if Equal/Zero | ZF = 1 |
-| JNE/JNZ | Jump if Not Equal/Not Zero | ZF = 0 |
-| JG/JNLE | Jump if Greater/Not Less or Equal (signed) | ZF = 0 and SF = OF |
-| JGE/JNL | Jump if Greater or Equal/Not Less (signed) | SF = OF |
-| JL/JNGE | Jump if Less/Not Greater or Equal (signed) | SF ≠ OF |
-| JLE/JNG | Jump if Less or Equal/Not Greater (signed) | ZF = 1 or SF ≠ OF |
+| JE/JZ | 같음 / 0일 때 점프 | ZF = 1 |
+| JNE/JNZ | 같지 않음 / 0이 아닐 때 점프 | ZF = 0 |
+| JG/JNLE | 큼 / 작거나 같지 않음(부호 있는 비교)일 때 점프 | ZF = 0 그리고 SF = OF |
+| JGE/JNL | 크거나 같음 / 작지 않음(부호 있는 비교)일 때 점프 | SF = OF |
+| JL/JNGE | 작음 / 크거나 같지않음(부호 있는 비교)일 때 점프 | SF ≠ OF |
+| JLE/JNG | 작거나 같음 / 크지 않음(부호 있는 비교)일 때 점프 | ZF = 1 또는 SF ≠ OF |
 
-**Constants**
+## 상수(Constants)
 
-Let’s look at some examples showing how to use constants:
+다음은 상수를 사용하는 예시입니다.
 
 ```assembly
 SECTION_RODATA
@@ -92,17 +92,21 @@ constants_1: db 1,2,3,4
 constants_2: times 2 dw 4,3,2,1
 ```
 
-* SECTION_RODATA specifies this is a read-only data section. (This is a macro because different output file formats that operating systems use declare this differently)
-* constants_1: The label constants_1, is defined as ```db``` (declare byte) - i.e equivalent to uint8_t constants_1[4] = {1, 2, 3, 4};
-* constants_2: This uses the ```times 2``` macro to repeat the declared words - i.e equivalent to uint16_t constants_2[8] = {4, 3, 2, 1, 4, 3, 2, 1};
+* `SECTION_RODATA`는 읽기 전용 데이터 섹션임을 지정합니다. (운영체제가 사용하는 출력 파일 형식마다 선언 방식이 다르기 때문에 매크로로 정의되어 있음)
+* `constants_1`: `db`(declare byte)로 정의된 `constants_1` 레이블로, `uint8_t constants_1[4] = {1, 2, 3, 4};`와 동일합니다.
+* `constants_2`: `times 2` 매크로를 이용해 선언된 워드를 두 번 반복합니다. `uint16_t constants_2[8] = {4, 3, 2, 1, 4, 3, 2, 1};`과 동일합니다.
 
-These labels, which the assembler converts to a memory address, can then be used in loads (but not stores as they are read-only). Some instructions take a memory address as an operand so they can be used without explicit loads into a register (there are pros and cons to this).
+이러한 레이블들은 어셈블러에 의해 메모리 주소로 변환됩니다. 읽기 전용이기 때문에 로드(load) 연산에는 사용할 수 있지만 저장(store) 연산에는 사용할 수 없습니다. 일부 명령어는 메모리 주소를 직접 피연산자로 받을 수 있어, 레지스터에 명시적으로 로드하지 않고도 메모리에 직접 접근할 수 있습니다(이 방식에는 장단점이 있습니다).
 
-**Offsets**
+## 오프셋(Offset)
 
 Offsets are the distance (in bytes) between consecutive elements in memory. The offset is determined by the **size of each element** in the data structure.
 
-Now that we're able to write loops, it’s time to fetch data. But there are some differences compared to C. Let’s look at the following loop in C:
+오프셋이란 메모리에서 연속된 요소 간의 거리(바이트 단위)를 말하며, 자료 구조의 각 요소 크기에 따라 결정됩니다.
+
+이제 반복문을 작성할 있으니 데이터를 읽어올 차례입니다. 다만 C언어와는 다른 점이 있습니다.
+
+C 코드 예시를 살펴보겠습니다.
 
 ```c
 uint32_t data[3];
@@ -112,22 +116,23 @@ for(i = 0; i < 3; i++) {
 }
 ```
 
-The 4-byte offset between elements of data is precalculated by the C compiler. But when handwriting assembly you need to calculate these offsets yourself.
+C 컴파일러는 `data`의 각 요소가 차지하는 4바이트 오프셋을 미리 계산합니다. 그러나 어셈블리 코드를 직접 작성할 때는 오프셋을 직접 계산해야 합니다.
 
-Let’s look at the syntax for memory address calculations. This applies to all types of memory addresses:
+모든 메모리 주소 계산에 적용되는 구문은 다음과 같습니다.
 
 ```assembly
 [base + scale*index + disp]
 ```
 
-* base - This is a GPR (usually a pointer from a C function argument)
-* scale - This can be 1, 2, 4, 8. 1 is the default
-* index - This is a GPR (usually a loop counter)
-* disp - This is an integer (up to 32-bit). Displacement is an offset into the data
+* **base** - GPR(일반적으로 C 함수 인자로 받은 포인터)
+* **scale** - 1, 2, 4, 8 중 하나 (기본값: 1)
+* **index** - GPR(보통 루프 카운터)
+* **disp** - 32비트 정수. 데이터 내부의 오프셋(변위, displacement)
 
-x86asm provides the constant mmsize, which lets you know the size of the SIMD register you are working with.
+x86 어셈블리는 현재 사용 중인 SIMD 레지스터 크기를 알려주는 `mmsize` 상수를 제공합니다.
 
-Here’s a simple (and nonsensical) example to illustrate loading from custom offsets:
+<!-- 원문에서는 nonsensical이라는 사족이 있지만, '단순'과 의미가 비슷하기 때문에 따로 옮기지는 않았습니다 -->
+다음은 사용자 지정 오프셋에서 값을 읽어오는 단순한 예시입니다.
 
 ```assembly
 ;static void simple_loop(const uint8_t *src)
@@ -138,7 +143,7 @@ cglobal simple_loop, 1, 2, 2, src
      movu m0, [srcq]
      movu m1, [srcq+2*r1q+3+mmsize]
 
-     ; do some things
+     ; ...
 
      add srcq, mmsize
 dec r1q
@@ -147,23 +152,23 @@ jg .loop
 RET
 ```
 
-Note how in ```movu m1, [srcq+2*r1q+3+mmsize]``` the assembler will precalculate the right displacement constant to use. In the next lesson we’ll show you a trick to avoid having to do add and dec in the loop, replacing them with a single add.
+`movu m1, [srcq+2*r1q+3+mmsize]`에서 어셈블러가 사용할 올바른 변위 상수(displacement constant)를 미리 계산해 준다는 점을 주목해 보세요. 다음 강의에서는 루프 내에서 `add`와 `dec` 두 연산을 사용하는 대신, 하나의 `add` 연산만 사용하는 방법을 보여드리겠습니다.
 
-**LEA**
+## LEA (Load Effective Address)
 
-Now that you understand offsets you are able to use lea (Load Effective Address). This lets you perform multiplication and addition with one instruction, which is going to be faster than using multiple instructions. There are, of course, limitations on what you can multiply by and add to but this does not stop lea being a powerful instruction.
+오프셋 개념을 이해했다면 이제 `lea` 명령어를 사용할 수 있습니다. `lea`는 한 번의 명령으로 곱셈과 덧셈을 수행할 수 있어 여러 명령을 사용하는 것보다 빠릅니다. 곱하거나 더할 수 있는 값에는 제한이 있지만 여전히 강력한 명령입니다.
 
 ```assembly
 lea r0q, [base + scale*index + disp]
 ```
 
-Contrary to the name, LEA can be used for normal arithmetic as well as address calculations. You can do something as complicated as:
+이름과 달리 `lea`는 주소 계산뿐 아니라 일반 산술 연산에도 사용할 수 있습니다. 예를 들어,
 
 ```assembly
 lea r0q, [r1q + 8*r2q + 5]
 ```
 
-Note that this does not affect the contents of r1q and r2q. It also doesn’t affect *FLAGS* (so you can’t jump based on the output). Using LEA avoids all these instructions and temporary registers (this code is not equivalent because add changes *FLAGS*):
+이 명령어는 `r1q`와 `r2q`의 값을 변경하지 않으며, FLAGS도 변경하지 않습니다(즉, 결과를 기반으로 한 점프가 불가능합니다). `lea`를 사용하면 여러 명령어와 임시 레지스터 사용을 피할 수 있습니다. 단, 아래 코드는 `add`가 FLAGS를 변경하기 때문에 완전히 동일하지는 않습니다.
 
 ```assembly
 movq r0q, r1q
@@ -177,6 +182,10 @@ You’ll see lea used a lot to set up addresses before loops or perform calculat
 
 In the assignment you’ll have to load a constant and add the values to a SIMD vector in a loop.
 
-[Next Lesson](../lesson_03/index.md)
+`lea`는 루프 전에 주소를 설정하거나 위와 같은 계산을 할 때 자주 사용됩니다. 모든 곱셈과 덧셈을 수행할 수는 없지만, 1, 2, 4, 8배 곱셈과 고정 오프셋 곱셈은 매우 흔한 연산입니다.
+
+과제에서는 상수를 로드하고, 루프 내에서 그 값을 SIMD 벡터에 더하는 작업을 수행하게 됩니다.
+
+[다음 강의](../lesson_03/index.md)
 
 - [^1]: `pxor`은 *Packed XOR*의 줄임말로 두 개의 SIMD 레지스터나 메모리 위치에 있는 데이터에 대해 비트별 XOR 연산을 병렬로 수행합니다.
