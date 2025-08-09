@@ -10,7 +10,7 @@ Benvenuto alla Scuola del Linguaggio Assembly FFmpeg. Hai fatto il primo passo i
 In questa repository Git ci sono lezioni e compiti (non ancora caricati) in corrispondenza ad ogni lezione. Alla fine delle lezioni sarai in grado di contribuire a FFmpeg
 
 Un server discord è disponibile per rispondere a domande:
-https://discord.com/invite/Ks5MhUhqfB
+[https://discord.com/invite/Ks5MhUhqfB](https://discord.com/invite/Ks5MhUhqfB)
 
 **Traduzioni**
 
