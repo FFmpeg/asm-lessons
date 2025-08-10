@@ -21,7 +21,8 @@ In FFmpeg, vedrai i termini "funzione assembly", "SIMD", e "vettorizzare" usati 
 
 Tutto questo potrebbe sembrare complicato, ma è importante ricordare che in FFmpeg, degli studenti delle superiori hanno scritto codice assembly. Come con tutto, imparare è al 50% terminologia, e al 50% effettivamente imparare.
 
-**Perchè scriviamo in linguaggio assembly?**
+**Perchè scriviamo in linguaggio assembly?**  
+
 Per rendere l'elaborazione multimediale veloce. È molto comune raggiungere un miglioramento di velocità anche di 10 o più volte scrivendo codice assembly, il che è specialmente importante per riprodurre video in tempo reale senza interruzioni. Oltretutto, ciò risparmia energia ed estende l'autonomia delle batterie. È giusto evidenziare che funzioni di codifica e decodifica video sono alcune delle più usate nel mondo, sia da utenti finali che da grandi compagnie e datacenter. Perciò anche un piccolo miglioramento si accumula velocemente.
 
 Online, vedrai spesso che le persone usano *intrinseche*, ovvero funzioni simili al C che mappano ad istruzioni assembly, permettendo uno sviluppo più veloce. In FFmpeg non usiamo intrinseche, ma piuttosto scriviamo codice assembly a mano. Questa rappresenta un area controversa, ma le intrinseche sono solitamente più lente del 10-15% rispetto all'assembly a mano (coloro che supportano le intrinseche non sarebbero d'accordo), in base al compilatore. Per FFmpeg, ogni piccolo miglioramento di velocità aiuta, e per questo scriviamo in codice assembly direttamente. C'è anche chi sostiene che le intrinseche siano difficili da leggere a causa dell'uso della "[Notazione Ungara](https://it.wikipedia.org/wiki/Notazione_ungara)"
@@ -30,13 +31,12 @@ Potresti anche vedere *assembly in linea* (ovvero senza usare intrinseche) da qu
 
 Infine, in rete vedrai molti esperti auto-proclamati tali che affermano che nulla di tutto ciò è necessario e che il compilatore può fare tutta questa "vettorizzazione" al posto tuo. Almeno per lo scopo di imparare, ignorali. test recenti, ad esempio nel [the dav1d project](https://www.videolan.org/projects/dav1d.html) mostrano una velocizzazione circa di 2 volte grazie a questa vettorizzazione automatica, mentre le versioni scritte a mano riuscivano a raggiungere le 8 volte.
 
-**Gusti del linguaggio assembly**
-
+**Gusti del linguaggio assembly**  
 Queste lezioni si concentreranno sull'assembly x86 a 64 bit. Questo è anche conosciuto come amd64, anche se funziona lo stesso su CPU Intel. Ci sono altri tipi di assembly per altre CPU, come ARM e RISC-V e potenzialmente nel futuro queste lezioni saranno estese per coprire tali.
 
 Ci sono due gusti di sintassi di assembly x86 che vedrai in rete: AT&T ed Intel. La sintassi AT&T è più complicata rispetto alla sintassi Intel, quindi useremo la sintassi Intel.
 
-**Materiali di supporto**
+**Materiali di supporto**  
 Potresti sorprenderti al fatto che libri o risorse in rete come Stack Overflow non sono particolarmente utili come riferimenti. Questo è in parte a causa della nostra scelta di scrivere codice assembly a mano con sintassi Intel. Ma è anche perchè molte risorse in rete si concentrano alla programmazione di sistemi operativi o alla programmazione hardware, solitamente usando codice non-SIMD. L'assembly FFmpeg è particolarmente concentrato alla processazione di immagini ad alte prestazioni, e come vedrai è un approccio particolarmente unico alla programmazione in assembly. Detto ciò, sarà facile comprendere altri casi d'uso dell'assembly una volta che avrai completato queste lezioni.
 
 Molti libri vanno molto sui dettagli dell'architettura del computer prima di insegnare l'assembly. Questo va bene se vuoi imparare quello, ma dal nostro punto di vista, è come studiare come funziona un motore prima di imparare a guidare.
@@ -46,15 +46,15 @@ Detto ciò, i diagrammi nelle parti verso la fine del libro "The Art of 64-bit a
 Un server discord è disponibile per rispondere a domande:
 [https://discord.com/invite/Ks5MhUhqfB](https://discord.com/invite/Ks5MhUhqfB)
 
-**Registri**
+**Registri**  
 I registri sono aree nella CPU dove i dati possono essere processati. Le CPU non eseguiranno operazioni direttamente sulla memoria, ma invece i dati verrano prima caricati nei registri, processati e poi scritti nuovamente in memoria. Nel linguaggio assembly, in generale, non è possibile copiare dati da un luogo in memoria ad un altro senza prima far passare quei dati attraverso un registro.
 
-**Registri a Scopo Generale**
+**Registri a Scopo Generale**  
 Il primo tipo di registro è conosciuto come Registro a Scopo Generale, in inglese *General Purpose Register* (GPR). I GPR sono riferiti come a scopo generale in quanto possono contenere dati, in questo caso un valore a 64 bit, o un indirizzo di memoria (un puntatore). Un valore in un GPR può essere processato attraverso operazioni come addizione, moltiplicazione, spostamento, ecc.
 
 nella maggior parte dei libri di assembly, ci sono capitoli dedicati alle sottigliezze dei GPR, il loro contesto storico ecc. Questo è perchè i GPR sono importanti quando viene alla programmazione di sistemi operativi, all'ingegneria inversa, ecc. Nel codice assembly scritto in FFmpeg, i GPR fanno più da impalcatura che altro e la maggior parte delle volte le loro complessità non sono necessarie e vengono astratte.
 
-**Registri vettoriali**
+**Registri vettoriali**  
 I registri vettoriali (SIMD), come suggerisce il nome, contengono più elementi di dati. Ci sono vari tipi di registri vettoriali:
 
 * Registri mm - Registri MMX, grandi 64 bit, storici ed ora non usati più di tanto
@@ -93,7 +93,7 @@ Riassumendo:
 
 I caratteri in grassetto saranno importanti dopo.
 
-**x86inc.asm include**
+**x86inc.asm include**  
 Vedrai come in molti esempi includeremo il file x86inc.asm. x86inc.asm è un livello d'astrazione leggero usato in FFmpeg, x264 e dav1d per rendere la vita di un programmatore d'assembly più semplice. Aiuta in molti modi, ma tanto per iniziare, una delle cose che fa è etichettare i GPR, r0, r1, r2. Questo significa che non dovrai ricordarti i nomi dei registri. Come menzionato prima, i GPR sono generalmente solo impalcature quindi questo ci semplifica la vita.
 
 **Un semplice estratto du asm scalare**
@@ -214,4 +214,4 @@ Questa è una macro per denotare il ritorno della funzione. Praticamente tutte l
 
 Come vedrai nel compito, creeremo puntatori di funzione a funzioni assembly e useremo questi dove possiamo
 
-[Next Lesson](../lesson_02/index.it.md)
+[Prossima Lezione](../lesson_02/index.it.md)
