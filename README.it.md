@@ -1,4 +1,4 @@
-Benvenuto alla Scuola del Linguaggio Assembly FFmpeg. Hai fatto il primo passo in uno dei viaggi più interessanti, impegnativi e soddisfacenti nella programmazione. Queste lezioni ti daranno una base nel modo in cui il linguaggio assembly è scritto in FFmpeg e ti faranno aprire gli occhi a cosa sta effeivamente succedendo all'interno del tuo computer.
+Benvenuto alla Scuola del Linguaggio Assembly FFmpeg. Hai fatto il primo passo in uno dei viaggi più interessanti, impegnativi e soddisfacenti nella programmazione. Queste lezioni ti daranno una base nel modo in cui il linguaggio assembly è scritto in FFmpeg e ti apriranno gli occhi a cosa sta effeivamente succedendo all'interno del tuo computer.
 
 **Conoscenze Richieste**
 

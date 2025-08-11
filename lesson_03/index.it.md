@@ -4,13 +4,13 @@ Ora spiegheremo un po' di terminologia tecnica e vi daremo una piccola lezione d
 
 **Set di Istruzioni**
 
-Come avrei visto nella lezione precedente, abbiamo parlato di SSE2, ovvero un set di istruzioni SIMD.  Quando una nuova generazione di CPU viene rilasciata, potrebbe avere nuove istruzioni e a volte una maggiore dimensione dei registri. La storia del set di istruzioni x86 è molto complessa, quindi questa qui sotto è una storia semplificata (ci sono molte più sottocategorie)
+Come avrei visto nella lezione precedente, abbiamo parlato di SSE2, ovvero un set di istruzioni SIMD.  Quando una nuova generazione di CPU viene rilasciata, potrebbe avere nuove istruzioni e a volte una maggiore dimensione dei registri. La storia del set di istruzioni x86 è molto complessa, quindi questa qui sotto è una storia semplificata (ci sarebbero sennò molte più sottocategorie)
 
 * MMX - Rilasciato nel 1997, primi SIMD nei processori Intel, registri a 64 bit, storico
 * SSE (Streaming SIMD Extensions) - Rilasciato nel 1999, registri a 128 bit
 * SSE2 - Rilasciato nel 2000, molte nuove istruzioni
 * SSE3 - Rilasciato nel 2004, prime istruzioni orizzontali
-* SSSE3 (Supplemental SSE3) - Rilasciato nel 2006, nuove istruzioni ma più importante `pshubfb`
+* SSSE3 (Supplemental SSE3) - Rilasciato nel 2006, nuove istruzioni ma soprattutto `pshubfb`
 * SSE4 - Rilasciato nel 2008, varie nuove istruzioni tra cui minimo e massimo impacchettato
 * AVX - Rilasciato nel 2011, registri a 256 bit (solo `float`) a nuova sintassi a tre operandi
 * AVX2 - Rilasciato nel 2013, registri a 256 bit per istruzioni con numeri interi
@@ -18,13 +18,13 @@ Come avrei visto nella lezione precedente, abbiamo parlato di SSE2, ovvero un se
 * AVX512ICL - Rilasciata nel 2019, rimuove la limitazione della frequenza.
 * AVX10 - In arrivo  
 
-È giusto notare che i set di istruzioni possono essere sia rimossi che aggiunti alle CPU. Ad esempio, AVX512 fu [rimosso](https://www.igorslab.de/en/intel-deactivated-avx-512-on-alder-lake-but-fully-questionable-interpretation-of-efficiency-news-editorial/)), polemicamente, nella 12esima generazione di CPU Intel. Questo è il motivo per cui FFmpeg rileva la CPU su cui sta eseguendo e le capacità di essa all'esecuzione.
+È giusto notare che i set di istruzioni possono essere sia rimossi che aggiunti alle CPU. Ad esempio, AVX512 fu [rimosso](https://www.igorslab.de/en/intel-deactivated-avx-512-on-alder-lake-but-fully-questionable-interpretation-of-efficiency-news-editorial/)), in modo controverso, nella 12esima generazione di CPU Intel. Questo è il motivo per cui FFmpeg rileva la CPU e le capacità di essa all'esecuzione.
 
-Come avrai potuto osservare nel compito, i puntatori di funzione sono di default in C e sono rimpiazzati con una particolare variante di set di istruzioni. Questo significa che una volta eseguita la rilevazione non servirà più eseguirla. Ciò è in contrasto a ciò che molte applicazioni proprietarie, ovvero codificare un set di istruzioni particolare, rendendo un computer perfettamente operazionale obsoleto. Questo permette anche di usare/non usare funzioni ottimizzate all'esecuzione. Uno dei grandi benefici dell'open source è proprio questo.
+Come avrai potuto osservare nel compito, i puntatori di funzione sono di default in C e sono rimpiazzati con una particolare variante di set di istruzioni. Questo significa che una volta eseguita la rilevazione non servirà più ri-eseguirla. Questo è in contrasto a ciò che molte applicazioni proprietarie fanno, ovvero essere scritte per un set di istruzioni particolare, rendendo un computer perfettamente operazionale obsoleto. Questo permette anche di usare/non usare funzioni ottimizzate all'esecuzione. Uno dei grandi benefici dell'open source è proprio questo.
 
-Programmi come FFmpeg vengono usati su miliardi di dispositivi in tutto il mondo, e alcuni di questi potrebbero essere molto vecchi. Tecnicamente, FFmpeg supporta anche macchine che sopportano soltanto SSE, anche se ormai sono al 25esimo compleanno! Fortunatamente x86inc.asm è in grado di comunicarti se stai usando un istruzione che non è disponibile in un particolare set di istruzioni.
+Programmi come FFmpeg vengono usati su miliardi di dispositivi in tutto il mondo, e alcuni di questi potrebbero essere molto vecchi. Tecnicamente, FFmpeg supporta anche macchine che supportano soltanto SSE, anche se sono ormai al loro 25esimo compleanno! Fortunatamente x86inc.asm è in grado di comunicarti se stai usando un istruzione che non è disponibile in un particolare set di istruzioni.
 
-Per dare un idea delle capacità effettive al giorno d'oggi, ecco la disponibilità di set di istruzioni dallo [Steam Survey](https://store.steampowered.com/hwsurvey/Steam-Hardware-Software-Survey-Welcome-to-Steam) del novembre 2024:
+Per dare un idea delle capacità effettive delle machcine al giorno d'oggi, ecco la disponibilità di set di istruzioni dallo [Steam Survey](https://store.steampowered.com/hwsurvey/Steam-Hardware-Software-Survey-Welcome-to-Steam) del novembre 2024 (ovviamente questo sondaggio è sbilanciato dalla parte dei gamer):
 
 | Set di Istruzioni | disponibilità |
 | :---- | :---- |
@@ -36,11 +36,11 @@ Per dare un idea delle capacità effettive al giorno d'oggi, ecco la disponibili
 | AVX2 | 94.44% |
 | AVX512 (Steam does not separate between AVX512 and AVX512ICL) | 14.09% |
 
-Per un applicazione come FFmpeg con miliardi di utenti, anche lo 0.1% è un gran numero di utenti e bug report se qualcosa va storto. FFmpeg ha un infrastruttura di test molto estensiva per testare le differenze di CPU/SO/Compilatore nella nostra [Suite di test FATE](https://fate.ffmpeg.org/?query=subarch:x86_64%2F%2F). Ogni singolo commit è eseguito su centinaia di macchine per essere sicuri nulla si rompa.
+Per un applicazione come FFmpeg con miliardi di utenti, anche lo 0.1% è un gran numero di utenti e bug report se qualcosa non funziona. FFmpeg ha un infrastruttura di test molto estensiva per testare le differenze di CPU/SO/Compilatore nella nostra [Suite di test FATE](https://fate.ffmpeg.org/?query=subarch:x86_64%2F%2F). Ogni singolo commit è eseguito su centinaia di macchine per essere sicuri nulla vada storto.
 
 Intel ha un manuale dei set di istruzioni dettagliato qui: 
 [https://www.intel.com/content/www/us/en/developer/articles/technical/intel-sdm.html](https://www.intel.com/content/www/us/en/developer/articles/technical/intel-sdm.html)
-può essere abbastanza scomodo cercare attraverso un PDF, quindi qui puoi trovare un alternativa web non ufficiale: [https://www.felixcloutier.com/x86/](https://www.felixcloutier.com/x86/)
+Può essere abbastanza scomodo cercare attraverso un PDF, quindi qui puoi trovare un alternativa web non ufficiale: [https://www.felixcloutier.com/x86/](https://www.felixcloutier.com/x86/)
 
 È anche dispoibile una rappresentazione visuale delle istruzioni SIMD qui: [https://www.officedaytime.com/simd512e/](https://www.officedaytime.com/simd512e/)
 
@@ -75,7 +75,7 @@ cglobal add_values, 3, 3, 2, src, src2, width
     RET
 ```
 
-Attraversiamola un passo alla volta, in quanto potrebbe fare confusione:
+Attraversiamola un passo alla volta, in quanto potrebbe causare confusione:
 
 ```assembly
    add srcq, widthq
@@ -90,28 +90,28 @@ La larghezza è aggiunta ad ogni puntatore in modo che ogni puntatore ore punti 
     movu  m1, [src2q+widthq]
 ```
 
-I caricamenti sono eseguiti con `vidthq` negativa. Quindi alla prima iterazione `[srcq.widthq]` punta all'indirizzo di `srcq` originale, ovvero l'inizio del buffer.
+I caricamenti sono eseguiti con `widthq` negativa. Quindi alla prima iterazione `[srcq.widthq]` punta all'indirizzo di `srcq` originale, ovvero l'inizio del buffer.
 
 ```assembly
     add   widthq, mmsize
     jl .loop
 ```
 
-`mmsize` è aggiunto a `widthq` negativo portandolo più vicino allo zero. La condizione del ciclo ora è `jl` (salta se meno di zero). Questo trucco fa in modo che `widthq` è usato **sia** come offset del puntatore **che** come contatore, risparmiando un'istruzione `cmp`. Questo oltretutto permette sia di usare dello sfalsamento del puntatore in più caricamenti e memorizzazioni che di usare multipli di quel puntatore se necessario (ricordatelo per questo compito).
+`mmsize` è aggiunto a `widthq` negativo portandolo più vicino allo zero. La condizione del ciclo ora è `jl` (salta se meno di zero). Questo trucco fa in modo che `widthq` è usato **sia** come offset del puntatore **che** come contatore, risparmiando un'istruzione `cmp`. Questo oltretutto permette di usare lo sfalsamento del puntatore in più caricamenti e memorizzazioni e di usare multipli di quel puntatore se necessario (ricordatelo per questo compito).
 
 **Allineamento**
 
-In tutti i nostri esempi abbiamo usato `movu` per evitare di avere a che fare con la questione dell'allineamento. Molte CPU possono caricare e memorizzare dati più velocemente se quei dati sono allineati, ovvero se l'indirizzo di memoria è divisibile per la dimensione del registro SIMD. Dove possibile, è buono provare ad usare carichi e memorizzazioni allineate in FFmpeg usando `mova`.
+In tutti i nostri esempi abbiamo usato `movu` per evitare di avere a che fare con la questione dell'allineamento. Molte CPU possono caricare e memorizzare dati più velocemente se quei dati sono allineati, ovvero se l'indirizzo di memoria è divisibile per la dimensione del registro SIMD. Dove possibile, è buono provare ad usare caricamenti e memorizzazioni allineate in FFmpeg usando `mova`.
 
-In FFmpeg, `av_malloc` è in grado di provvedere memoria allineata nell'*heap* e la direttiva preprocessore DECLARE_ALIGNED C ci può dare memoria allineata nello *stack*. Se `mova` è utilizzato con un indirizzo non allineato, causerà un errore di segmentazione e l'applicazione si bloccherà. È anche importante assicurarsi che l'allineamento corrisponda alla dimensione del registro SIMD, quindi 16 per xmm, 32 per ymm e 64 per zmm.
+In FFmpeg, `av_malloc` è in grado di provvedere memoria allineata nell'*heap* e la direttiva preprocessore `DECLARE_ALIGNED C` ci può dare memoria allineata nello *stack*. Se `mova` è utilizzato con un indirizzo non allineato, causerà un errore di segmentazione e l'applicazione si bloccherà. È anche importante assicurarsi che l'allineamento corrisponda alla dimensione del registro SIMD, quindi 16 per xmm, 32 per ymm e 64 per zmm.
 
-Ecco come allineiamo l'inizio della sezione RODATA a 64 byte
+Ecco come allineiamo l'inizio della sezione `RODATA` a 64 byte
 
 ```assembly
 SECTION_RODATA 64
 ```
 
-Da notare come questo allinei soltanto l'inizio di RODATA. Byte di riempimento potrebbero essere necessari per essere sicuri che la prossima etichetta rimanga entro il limite di 64 byte.
+Da notare come questo allinei soltanto l'inizio di `RODATA`. Byte di riempimento potrebbero essere necessari per essere sicuri che la prossima etichetta rimanga entro il limite di 64 byte.
 
 **Espansione della portata**
 
@@ -126,13 +126,13 @@ Diamo un occhio a come funziona `punpcklbw`. La sintassi per la versione SSE2 è
 
 Questo significa che la sua fonte (a destra) può essere un registro xmm o un indirizzo di memoria (m128 significa un indirizzo di memoria con la sintassi `[base + scala*indice + spiazzamento]`) e come destinazione un registro xmm.
 
-il sito [officedaytime.com](officedaytime.com) ha un buon diagramma per mostrare ciò che sta succedendo
+Il sito [officedaytime.com](officedaytime.com) ha un buon diagramma per mostrare ciò che sta succedendo
 
 ![cos'è questo](image1.png)
 
-Puoi vedere come i byte sono alternati dalla parte più bassa di ogni registro rispettivamente. Ma che c'entra con le espansioni? Se il registro src è tutti zero questo alterna i byte in dst con zeri. Questo è conosciuto come una *zero extension* (estensione a zero) in quanto i byte sono senza segno. punpckhbw può essere usato per fare la stessa cosa per i byte alti.
+Puoi vedere come i byte sono alternati dalla parte più bassa di ogni registro rispettivamente. Ma che c'entra con le espansioni? Se il registro `src` è tutti zero questo alterna i byte in `dst` con zeri. Questo è conosciuto come una *zero extension* (estensione a zero) in quanto i byte sono senza segno. `punpckhbw` può essere usato per fare la stessa cosa per i byte alti.
 
-Ecco un esempio che mostra come funziona questa cosa:
+Ecco un esempio che mostra come si fa questa cosa:
 
 ```assembly
 pxor      m2, m2 ; azzera m2
@@ -147,9 +147,9 @@ punpckhbw m1, m2
 
 **Estensione del segno**
 
-I dati con segno sono un rendono le cose un pò più complicate. Per espandere la portata di un intero con segno, dobbiamo usare in processo conosciuto come [Estensione del Segno](https://en.wikipedia.org/wiki/Sign_extension). Questo imbottisce i bit più significativo il bit di segno. Per esempio: -2 in `int8_t` è pari a `0b11111110`. Per effettuare l'estensione del segno e renderlo un `int16_t` il bit più significativo viene ripetuto, per risultare `0b1111111111111110`.
+I dati con segno rendono le cose un po' più complicate. Per espandere la portata di un intero con segno, dobbiamo usare un processo conosciuto come [Estensione del Segno](https://en.wikipedia.org/wiki/Sign_extension). Questo imbottisce il bit più significativo con il bit di segno. Per esempio: -2 in `int8_t` è pari a `0b11111110`. Per effettuare l'estensione del segno e renderlo un `int16_t` il bit più significativo viene ripetuto, per risultare `0b1111111111111110`.
 
-`pcmpgtb` (packed compare greater than byte) può essere confuso per l'estensione del segno. Facendo il confronto (0 > byte), tutti i bit nella destinazione sono 1 se il byte è negativo, altrimenti i bit alla destinazione vengono tutti impostati a 0. `punpckX` può essere usato come sopra riportato per eseguire l'estensione del segno. Se il byte è negativo il byte corrispondente è `0b11111111` sennò altrimenti è `0x00000000`. Alternare il valore in byte con il risultato di `pcmgtb` esegue un estensione del segno come risultato.
+`pcmpgtb` (packed compare greater than byte) può essere confuso per l'estensione del segno. Facendo il confronto (0 > byte), tutti i bit nella destinazione sono 1 se il byte è negativo, altrimenti i bit nella destinazione vengono impostati a 0. `punpckX` può essere usato come sopra riportato per eseguire l'estensione del segno. Se il byte è negativo il byte corrispondente è `0b11111111`, altrimenti è `0x00000000`. Alternare il valore in byte con il risultato di `pcmgtb` esegue un estensione del segno come risultato.
 
 ```assembly
 pxor      m2, m2 ; zero out m2
@@ -164,13 +164,13 @@ punpckhbw m1, m2
 
 Come puoi vedere c'è un istruzione in più in confronto al caso senza segno.
 
-**impacchettamento (Packing)**
+**Impacchettamento (Packing)**
 
-`packuswb` (pack unsigned word to byte) e `packsswb` ci permettono di passare da una parola ad un byte. Ci permette di alternare due registri SIMD contenenti due parole in un registro SIMD da un byte. Nota che se i valori eccedono la dimensione del byte, verrano saturati (ovvero limitati al proprio valore massimo).
+`packuswb` (pack unsigned word to byte) e `packsswb` ci permettono di passare da parola a byte. Ci permette di alternare due registri SIMD contenenti parole in un registro SIMD da un byte. Nota che se i valori eccedono la dimensione del byte, verrano saturati (ovvero limitati al proprio valore massimo).
 
 **Shuffles (Mescolamenti)**
 
-Gli *shuffle*, conosciuti anche come permute, sono discutibilmente le istruzioni più importanti nell'elaborazione video e `pshufb` (packed shuffle bytes), disponibile in SSSE3, è la variante più importante.
+Gli *shuffle*, conosciuti anche come pérmute, sono discutibilmente le istruzioni più importanti nell'elaborazione video e `pshufb` (packed shuffle bytes), disponibile in SSSE3, è la variante più importante.
 
 Per ogni byte il corrispondente byte sorgente è usato da indice del registro di destinazione, eccetto quando il bit più significativo è zero, il che significa il byte di destinazione è azzerato. È analogo al seguente codice C (anche se in SIMD tutti e 16 le iterazioni del ciclo avvengono in parallelo):
 
