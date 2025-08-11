@@ -165,4 +165,4 @@ Vedrai come lea è molto usato per impostare indirizzi prima di cicli o per eseg
 
 Nel compito dovrai caricare una costante ed addizionare i valori ad un vettore SIMD in un ciclo
 
-[Prossima Lezione](/lesson_03/index.it.md)
+[Prossima Lezione](../lesson_03/index.it.md)
