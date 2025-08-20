@@ -162,7 +162,7 @@ This is an important line as it defines a C function called “add_values”.
 Let’s go through each item one at a time:
 
 * The next parameter shows it has two function arguments.   
-* The parameter after that shows that we’ll use two GPRs for the arguments. In some cases we might want to use more GPRs so we have to tell x86util we need more.   
+* The parameter after that shows that we’ll use two GPRs in this function including the arguments. In some cases we might want to use more GPRs so we have to tell x86util we need more.   
 * The parameter after that tells x86util how many XMM registers we are going to use.  
 * The following two parameters are labels for the function arguments.
 
