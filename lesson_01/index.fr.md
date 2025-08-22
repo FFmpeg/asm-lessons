@@ -11,7 +11,7 @@ Bienvenue dans la FFmpeg School of Assembly Language. Vous avez fait le premier 
 
 **Qu'est ce que l'assembleur?**
 
-L'assembleur est un langage de programmation où le code que vous écrivez correpond directement à des instructions compréhensibles par un CPU. L'assembleur lisible par l'Homme est, comme son nom l'indique, *assemblé* en données binaires, connues sous le nom de *langage machine*, que le CPU peut comprendre. Le code assembleur est souvent appelé "assembleur" ou "asm" en ambrégé.
+L'assembleur est un langage de programmation où le code que vous écrivez correspond directement à des instructions compréhensibles par un CPU. L'assembleur lisible par l'Homme est, comme son nom l'indique, *assemblé* en données binaires, connues sous le nom de *langage machine*, que le CPU peut comprendre. Le code assembleur est souvent appelé "assembleur" ou "asm" en ambrégé.
 
 La grand majorité de l'assembleur de FFmpeg est ce que l'on appelle *SIMD, Single Instruction Multiple Data (instruction unique, données multiples)*. SIMD est parfois désigné sous le terme de programmation vectorielle. Cela signifie qu'une instruction particulière opère sur plusieurs éléments de données simultanément. La plupart des langages de programmation traitent un seul élément de données à la fois, ce que l'on appelle la programmation scalaire.
 
