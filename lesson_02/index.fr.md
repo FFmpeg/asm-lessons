@@ -61,7 +61,7 @@ xor r0q, r0q
 Plusieurs choses sont à examiner sur cet extrait de code. Dans un premier temps, `xor r0q, r0q` est une manière simple d'assigner un registre à zéro, ce qui est plus rapide sur certains systèmes que `mov r0q, 0`, parce qu'il n'y a aucun chargement de données.
 Cela peut aussi être utilisé avec des registres **SIMD** avec la ligne `pxor m0, m0` pour mettre à zéro un registre entier. La chose suivante à noter est l'utilisation de `cmp`. `cmp` peut effectivement soustraire le second registre du premier (sans avoir à sauvegarder la valeur quelque part) et met à jour les *FLAGS*, mais comme l'indique le commentaire, cela peut être lu avec l'instruction de saut `jl` (saut si inférieur à zéro) pour effectuer un saut si `r0q < 3`.
 
-Notez la présence d'une instruction supplémentaire (\`\`\`\`cmp\`\`\`) dans ce court extrait. Généralement, peu d'instructions équivaut à du code plus rapide, c'est pourquoi l'exemple précédent est préféré. Comme vous le verrez plus tard, il existe plusieurs astuces pour éviter des instructions supplémentaires et faire en sorte que les *FLAGS* soient définis par une opération arithmétique ou une autre opération. Notez que nous n'écrivons pas de l'assembleur pour correspondre exactement aux boucles en C, nous écrivons des boucles en assembleur pour les rendre les plus rapides en assembleur.
+Notez la présence d'une instruction supplémentaire (````cmp```) dans ce court extrait. Généralement, peu d'instructions équivaut à du code plus rapide, c'est pourquoi l'exemple précédent est préféré. Comme vous le verrez plus tard, il existe plusieurs astuces pour éviter des instructions supplémentaires et faire en sorte que les *FLAGS* soient définis par une opération arithmétique ou une autre opération. Notez que nous n'écrivons pas de l'assembleur pour correspondre exactement aux boucles en C, nous écrivons des boucles en assembleur pour les rendre les plus rapides en assembleur.
 
 Voici quelques mnémoniques de saut que vous finirez par utiliser (les registres *FLAGS* sont présentés là pour tout couvrir, mais vous n'aurez pas à tout connaître pour écrire des boucles) :
 
@@ -170,4 +170,4 @@ Vous verrez l'utilisation de `lea` dans le calcul de beaucoup d'adresses avant d
 
 Dans l'exercice, vous aurez à charger une constante et à en additionner les valeurs à un vecteur **SIMD** dans une boucle.
 
-[Leçon suivante](https://www.google.com/search?q=../lesson_03/index.fr.md)
+[Leçon suivante](../lesson_03/index.fr.md)
