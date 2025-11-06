@@ -199,5 +199,3 @@ pshufb m0, m1 ; shuffle m0 based on m1
 ```
 
 Notez que -1, pour une lecture facile, est utilisé comme l'indice de mélange pour mettre à zéro le byte de sortie : `-1` en tant que byte est le champ binaire `0b11111111` (complément à deux), et ainsi le bit de poids fort (MSB) (`0x80`) est activé.
-
-[Leçon suivante](https://www.google.com/search?q=../lesson_03/index.fr.md)
