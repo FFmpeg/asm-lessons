@@ -16,3 +16,4 @@ https://discord.com/invite/Ks5MhUhqfB
 
 * [English](./README.md)
 * [Français](./README.fr.md)
+* [Korean](./README.ko.md)
