@@ -1,4 +1,4 @@
-Witajcie w Szkole Języka Asemblera FFmpeg. Zrobiliście pierwszy krok na najbardziej interesującej, wymagającej i satysfakcjonującej ścieżce w programowaniu. Te lekcje zapewnią wam fundamenty wiedzy o tym, jak asembler jest wykorzystywany w FFmpeg i otworzą wam oczy na to, co naprawdę dzieje się w waszym komputerze.
+Witaj w Szkole Języka Asemblera FFmpeg. Zrobiłeś pierwszy krok na najbardziej interesującej, wymagającej i satysfakcjonującej ścieżce w programowaniu. Te lekcje zapewnią Ci fundamenty wiedzy o tym, jak asembler jest wykorzystywany w FFmpeg i otworzą oczy na to, co naprawdę dzieje się w waszym komputerze.
 
 **Wymagana wiedza**
 
