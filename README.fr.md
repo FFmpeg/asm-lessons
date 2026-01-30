@@ -16,4 +16,4 @@ https://discord.com/invite/Ks5MhUhqfB
 
 * [English](./README.md)
 * [Spanish](./README.es.md)
-* [Polish](./README.pl.md)
+* [Polski](./README.pl.md)
