@@ -100,6 +100,15 @@ The loads are then done with widthq being negative. So on the first iteration [s
 
 mmsize is added to the negative widthq bringing it closer to zero. The loop condition is now jl (jump if less than zero). This trick means widthq is used as a pointer offset **and** as a loop counter at the same time, saving a cmp instruction. It also allows the pointer offset to be used in multiple loads and stores, as well as using multiples of the pointer offsets if needed (remember this for the assignment).
 
+This is equivalent to the C code:
+```C
+uint8_t *end = src + width;
+for (ptrdiff_t off = -width; off < 0; off += mmsize) {
+   uint8_t *ptr = end + off;
+   //operate on ptr
+}
+```
+
 **Alignment**
 
 In all our examples we have been using movu to avoid the topic of alignment. Many CPUs can load and store data faster if the data is aligned, i.e if the memory address is divisible by the SIMD register size. Where possible we try to use aligned loads and stores in FFmpeg using mova.
