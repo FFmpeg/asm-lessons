@@ -81,8 +81,8 @@ constants_2: times 2 dw 4,3,2,1
 ```
 
 * SECTION_RODATA specifies this is a read-only data section. (This is a macro because different output file formats that operating systems use declare this differently)
-* constants_1: The label constants_1, is defined as ```db``` (declare byte) - i.e equivalent to uint8_t constants_1[4] = {1, 2, 3, 4};
-* constants_2: This uses the ```times 2``` macro to repeat the declared words - i.e equivalent to uint16_t constants_2[8] = {4, 3, 2, 1, 4, 3, 2, 1};
+* constants_1: The label constants_1, is defined as ```db``` (declare byte) - i.e equivalent to ```uint8_t constants_1[4] = {1, 2, 3, 4};```
+* constants_2: This uses the ```times 2``` macro to repeat the declared words - i.e equivalent to ```uint16_t constants_2[8] = {4, 3, 2, 1, 4, 3, 2, 1};```
 
 These labels, which the assembler converts to a memory address, can then be used in loads (but not stores as they are read-only). Some instructions take a memory address as an operand so they can be used without explicit loads into a register (there are pros and cons to this).
 

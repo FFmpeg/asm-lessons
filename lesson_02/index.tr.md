@@ -81,8 +81,8 @@ constants_2: times 2 dw 4,3,2,1
 ```
 
 * SECTION_RODATA bunun salt okunur veri bölümü olduğunu belirtir. (Bu bir makrodur çünkü işletim sistemlerinin kullandığı farklı çıktı dosya formatları bunu farklı şekilde beyan eder)
-* constants_1: constants_1 etiketi ```db``` (declare byte - byte beyan et) olarak tanımlanır - yani uint8_t constants_1[4] = {1, 2, 3, 4}; eşdeğeri
-* constants_2: Bu, beyan edilen word'leri tekrarlamak için ```times 2``` makrosunu kullanır - yani uint16_t constants_2[8] = {4, 3, 2, 1, 4, 3, 2, 1}; eşdeğeri
+* constants_1: constants_1 etiketi ```db``` (declare byte - byte beyan et) olarak tanımlanır - yani ```uint8_t constants_1[4] = {1, 2, 3, 4};``` eşdeğeri
+* constants_2: Bu, beyan edilen word'leri tekrarlamak için ```times 2``` makrosunu kullanır - yani ```uint16_t constants_2[8] = {4, 3, 2, 1, 4, 3, 2, 1};``` eşdeğeri
 
 Derleyicinin bir bellek adresine dönüştürdüğü bu etiketler daha sonra yüklemelerde kullanılabilir (salt okunur oldukları için saklamalarda değil). Bazı talimatlar operand olarak bir bellek adresi alır, bu nedenle register'a açık yükleme olmadan kullanılabilirler (bunun artıları ve eksileri vardır).
 
