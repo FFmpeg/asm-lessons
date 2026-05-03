@@ -81,8 +81,8 @@ constants_2: times 2 dw 4,3,2,1
 ```
 
 * SECTION_RODATA 指定这是一个只读数据段。（这是一个宏，因为操作系统使用的不同输出文件格式对此有不同的声明）
-* constants_1: 标签 constants_1，被定义为 ```db```（declare byte，即定义字节）- 相当于 uint8_t constants_1[4] = {1, 2, 3, 4};
-* constants_2: 这使用了 ```times 2``` 宏来重复声明的字 - 相当于 uint16_t constants_2[8] = {4, 3, 2, 1, 4, 3, 2, 1};
+* constants_1: 标签 constants_1，被定义为 ```db```（declare byte，即定义字节）- 相当于 ```uint8_t constants_1[4] = {1, 2, 3, 4};```
+* constants_2: 这使用了 ```times 2``` 宏来重复声明的字 - 相当于 ```uint16_t constants_2[8] = {4, 3, 2, 1, 4, 3, 2, 1};```
 
 这些标签（汇编器会将其转换为内存地址）可用于加载（但不能用于存储，因为是只读的）。有些指令可以直接接受内存地址作为操作数，因此无需先显式加载到寄存器（这样做各有利弊）。
 

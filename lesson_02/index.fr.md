@@ -86,8 +86,8 @@ constants_2: times 2 dw 4,3,2,1
 ```
 
   * SECTION\_RODATA indique qu'il s'agit d'une section en lecture seule. (C'est une macro car les différents formats de fichier de sortie utilisés par les systèmes d'exploitation les déclarent différemment.)
-  * le label *constants\_1* est défini comme étant un `db` (*declared bytes*), c'est équivalent à `uint8_t constants_1[4] = {1, 2, 3, 4};`
-  * constants\_2 utilise la macro `times 2` pour répéter la définition de mot (`dw` pour *declared word*), c'est équivalent à `uint16_t constants_2[8] = {4, 3, 2, 1, 4, 3, 2, 1};`
+  * le label *constants\_1* est défini comme étant un `db` (*declared bytes*), c'est équivalent à ```uint8_t constants_1[4] = {1, 2, 3, 4};```
+  * constants\_2 utilise la macro `times 2` pour répéter la définition de mot (`dw` pour *declared word*), c'est équivalent à ```uint16_t constants_2[8] = {4, 3, 2, 1, 4, 3, 2, 1};```
 
 Ces labels, que l'assembleur convertit en adresse mémoire, peuvent être utilisés pour les chargements (mais pas pour des stockages car ils sont en lecture seule). Quelques instructions acceptent une adresse mémoire comme opérande, ce qui permet de les utiliser sans chargement explicite dans un registre (il y a des avantages et des inconvénients à ceci).
 

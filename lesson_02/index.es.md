@@ -81,8 +81,8 @@ constants_2: times 2 dw 4,3,2,1
 ```
 
 * SECTION_RODATA especifica que esta es una sección de datos de solo lectura. (Es un macro porque diferentes formatos de archivo de salida usados por los sistemas operativos lo declaran de forma diferente)
-* constants_1: La etiqueta constants_1 se define como ```db``` (declarar byte), es decir, equivalente a uint8_t constants_1[4] = {1, 2, 3, 4};
-* constants_2: Esto usa el macro ```times 2``` para repetir las palabras declaradas, es decir, equivalente a uint16_t constants_2[8] = {4, 3, 2, 1, 4, 3, 2, 1};
+* constants_1: La etiqueta constants_1 se define como ```db``` (declarar byte), es decir, equivalente a ```uint8_t constants_1[4] = {1, 2, 3, 4};```
+* constants_2: Esto usa el macro ```times 2``` para repetir las palabras declaradas, es decir, equivalente a ```uint16_t constants_2[8] = {4, 3, 2, 1, 4, 3, 2, 1};```
 
 Estas etiquetas, que el ensamblador convierte en direcciones de memoria, pueden usarse en cargas (pero no en escrituras, ya que son de solo lectura). Algunas instrucciones aceptan una dirección de memoria como operando, por lo que pueden usarse sin necesidad de cargar explícitamente en un registro (esto tiene ventajas e inconvenientes).
 
