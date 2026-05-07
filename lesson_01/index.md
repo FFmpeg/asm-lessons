@@ -151,7 +151,7 @@ This denotes the section where the code you want to execute is placed. This is i
 INIT_XMM sse2
 ```
 
-The first line is a comment (the semi-colon “;” in asm is like “//” in C) showing what the function argument looks like in C. The second line shows how we are initialising the function to use XMM registers, using the sse2 instruction set. This is because paddb is an sse2 instruction. We’ll cover sse2 in more detail in the next lesson.
+The first line is a comment (the semi-colon “;” in asm is like “//” in C) showing what the function signature looks like in C. The second line shows how we are initialising the function to use XMM registers, using the sse2 instruction set. This is because paddb is an sse2 instruction. We’ll cover sse2 in more detail in the next lesson.
 
 ```assembly
 cglobal add_values, 2, 2, 2, src, src2
